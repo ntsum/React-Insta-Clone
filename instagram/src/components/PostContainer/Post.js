@@ -5,7 +5,11 @@ import PropTypes from 'prop-types'
 function Post(props) {
     return (
         <div>
-        <p>{props.post.username}</p>
+            <div className="top">
+         <img className="hi" src={props.post.thumbnailUrl} alt="thumbnail img"/>
+         
+        <p><strong>{props.post.username}</strong></p>
+        </div>
         <img src={props.post.imageUrl} alt="img"/>
         <CommentSection commentsData={props.post.comments} likes={props.post.likes}/>
         </div>

@@ -36,32 +36,34 @@ this.setState({
 handleLikes =()=> {
     if(this.state.liked === true){
     this.setState({
-        likes: this.state.likes+1,
-        liked: true
+        likes: this.state.likes-1,
+        liked: false
     });
 } else {
     this.setState({
-    likes: this.state.likes-1,
+    likes: this.state.likes+1,
     liked: true
 });
 }
 };
     render() {
         return (
-            <div className="comment-section">{
+            <div className="comment-section">
+            <i onClick={this.handleLikes}className="far fa-heart"></i>
+            <i className="far fa-comment"></i>
+            <div><strong>{this.state.likes}</strong></div>
+            {
                 this.state.commentsData.map((comment,i)=>
                     <Comment key={i}commentData={comment}/>
                     
              )
             }   
-            <i onClick={this.handleLikes}className="far fa-heart"></i>
-            <i className="far fa-comment"></i>
-            <div>{this.state.likes}</div>
             <form action="" onSubmit={this.handleSubmit}>
-            <input type=
-            "text" onChange={this.handleChange}
-             value={this.state.inputText}
-             placeholder="Add a Comment.."/>
+            <input className="bar"
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.inputText}
+            placeholder="Add a Comment.."/>
             </form>
             </div>
         )

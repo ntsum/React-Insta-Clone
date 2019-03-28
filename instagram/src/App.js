@@ -3,6 +3,7 @@ import withAuthenticate from './components/Authenticate/withAuthenticate';
 import dummyData from './dummy-data';
 import PostPage from './components/PostContainer/PostsPage';
 import Login from './components/Login/Login';
+import '../src/App.css';
 
 
 

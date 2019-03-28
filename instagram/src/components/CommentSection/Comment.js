@@ -4,8 +4,8 @@ class Comment extends React.Component {
     render() {
         return (
             <div>
-              {this.props.commentData.username} {" "}
-              {this.props.commentData.text}
+              <span className="user"><strong>{this.props.commentData.username} {" "}</strong></span>
+              <span className="comments">{this.props.commentData.text}</span>
             </div>
         )
     }
