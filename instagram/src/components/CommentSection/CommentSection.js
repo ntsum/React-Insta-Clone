@@ -1,58 +1,68 @@
-import React, {Component} from 'react';
-import Comments from './Comments'
+import React from 'react';
+import Comment from './Comment'
 
-class CommentSection extends Component {
-constructor(props){
+class CommentSection extends React.Component {
+    constructor(props){
     super(props);
     this.state = {
-        comments: [],
-        comment: '',
+        commentsData:props.commentsData,
+        inputText:'',
+        likes: props.likes,
+        liked: false
+
+    }
+}
+    handleChange = event => {
+        this.setState({inputText:event.target.value});
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+//first make a copy of the state
+const stateCopy=this.state.commentsData.slice()
+//second create the new comment
+const newComment= {
+    username:'iluvdoggos', 
+    text:this.state.inputText
+}
+stateCopy.push(newComment)
+//third update the state withj setState
+this.setState({
+    commentsData:stateCopy
+})
+
+
+    }
+handleLikes =()=> {
+    if(this.state.liked === true){
+    this.setState({
+        likes: this.state.likes+1,
+        liked: true
+    });
+} else {
+    this.setState({
+    likes: this.state.likes-1,
+    liked: true
+});
+}
+};
+    render() {
+        return (
+            <div className="comment-section">{
+                this.state.commentsData.map((comment,i)=>
+                    <Comment key={i}commentData={comment}/>
+                    
+             )
+            }   
+            <form action="" onSubmit={this.handleSubmit}>
+            <input type=
+            "text" onChange={this.handleChange} value={this.state.inputText}/>
+            </form>
+            <div onClick={this.handleLikes}>HEART{this.state.likes}</div>
+            </div>
+        )
     }
 }
 
-componentDidMount(){
-    this.setState({comments: this.props.comments})
-}
-
-addNewComment = event => {
-    event.preventDefault(); 
-    this.setState({
-        comments: [
-            ...this.state.comments, 
-            {
-                text: this.state.comment,
-                username: 'ilovedoggos'
-            }
-        ]
-    })
-}
-
-handleChanges = event => {
-    this.setState({
-        [event.target.name]: event.target.value
-    });
-};
-
-render(){
-    return(
-    <div>
-    {this.state.comments.map((comments, index) =>
-    <Comments username={comments.username} key={index} text={comments.text} 
-    />)}
-    <form onSubmit={this.addNewComment}>
-        <label>
-            <input className="add"
-                type="text"
-                name='comment'
-                value={this.state.comment}
-                onChange={this.handleChanges}
-                placeholder = 'Add a Comment'
-            />
-        </label>
-    </form>
-    </div>);
-}
-}
-
-
 export default CommentSection;
+

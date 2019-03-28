@@ -1,50 +1,61 @@
-import React, { Component } from "react";
-import "./App.css";
-import dummyData from "./dummy-data";
-import PostContainer from "./components/PostsContainer/PostContainer";
-import SearchBar from "./components/SearchBar/SearchBar";
+import React from 'react';
+import withAuthenticate from './components/Authenticate/withAuthenticate';
+import dummyData from './dummy-data';
+import PostPage from './components/PostContainer/PostsPage';
+import Login from './components/Login/Login';
 
-class App extends Component {
-  constructor() {
+
+
+class App extends React.Component {
+    constructor(){
     super();
-    this.state = {
-      data: dummyData,
-      liked: false
-    };
-  }
-
-  handleLikes = id => {
-    const selected = this.state.data.filter(post => post.id === id);
-
-    const newPost = {
-      id: selected[0].id,
-      username: selected[0].username,
-      thumbnailUrl: selected[0].thumbnailUrl,
-      likes: this.state.liked ? selected[0].likes -1: selected[0].likes +1,
-      timestamp: selected[0].timestamp,
-      comments: selected[0].comments,
-      imageUrl: selected[0].imageUrl
-    };
-    const filteredData = this.state.data.map(post => {
-      if (post.id !== id) {
-        return post;
-      } else {
-        console.log(newPost);
-        return newPost;
-      }
-    });
-
-    this.setState({ data: [...filteredData], liked: !this.state.liked});
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <SearchBar />
-        <PostContainer posts={this.state.data} handleLikes={this.handleLikes} />
-      </div>
-    );
-  }
+this.state = {
+    data: [],
+    searchInputText:'',
+    filtered: []
 }
+    }
+
+  handleSubmit= event => {
+      event.preventDefault();
+    const filteredData = this.state.data.filter(post =>
+        post.username.includes(this.state.searchInputText))
+this.setState({
+    filtered: filteredData
+})
+  }
+    handleChange=(event)=> {
+        this.setState({
+            searchInputText: event.target.value
+        })
+    } 
+//runs only once 
+componentDidMount = () => {
+      this.setState({
+          data:dummyData
+      })
+    }
+    
+    render() {
+        
+        
+        return (
+            <div>
+
+           <AuthenticatedPostPage searchInputText={this.state.searchInputText}
+               handleChange={this.handleChange}
+               handleSubmit={this.handleSubmit}
+               allPosts={this.state.searchInputText===''? 
+               this.state.data : this.state.filtered}
+               
+               />
+            
+            </div>
+        )
+     }
+}
+
+const AuthenticatedPostPage= withAuthenticate(PostPage)(Login);
+
 
 export default App;
