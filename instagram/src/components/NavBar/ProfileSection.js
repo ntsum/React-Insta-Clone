@@ -4,9 +4,9 @@ class ProfileSection extends React.Component {
     render() {
         return (
             <React.Fragment>
-            <div>heart</div>
-            <div>compass</div>
-            <div>something </div>
+            <i className="far fa-compass"></i>
+        <i className="far fa-heart"></i>
+        <i className="far fa-user"></i>
             </React.Fragment>
         )
     }

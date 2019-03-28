@@ -54,11 +54,15 @@ handleLikes =()=> {
                     
              )
             }   
+            <i onClick={this.handleLikes}className="far fa-heart"></i>
+            <i className="far fa-comment"></i>
+            <div>{this.state.likes}</div>
             <form action="" onSubmit={this.handleSubmit}>
             <input type=
-            "text" onChange={this.handleChange} value={this.state.inputText}/>
+            "text" onChange={this.handleChange}
+             value={this.state.inputText}
+             placeholder="Add a Comment.."/>
             </form>
-            <div onClick={this.handleLikes}>HEART{this.state.likes}</div>
             </div>
         )
     }

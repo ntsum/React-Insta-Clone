@@ -7,7 +7,7 @@ class NavBar extends React.Component {
     render(){
         return(
             <div className='navBar'>
-                <div>LOGO</div>
+                <i className="fab fa-instagram"></i> | Instagram
                 <SearchBar searchInputText={this.props.searchInputText}
                  handleChange={this.props.handleChange}
                  handleSubmit={this.props.handleSubmit}/>
